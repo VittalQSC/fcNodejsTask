@@ -48,6 +48,17 @@ router.get('/update/:id', function(req, res, next) {
   }); 
 });
 
+router.get('/remove/:id', function(req, res, next) {
+  var id = req.params.id;
+  
+  Article.remove({_id: id}, function (err, article) {
+    if (err) {console.log('ERR');}
+
+    res.json('deleted');
+  }); 
+
+});
+
 router.post('/', function (req, res) {
 	var body = req.body;
 	console.log(body);
