@@ -25,7 +25,8 @@ router.get('/updated/:id', function(req, res, next) {
 
   // res.send(newArticle)
   Article.findByIdAndUpdate(id, newArticle, {new: true}, function (err, article) {
-    res.render('article', {article});
+    // res.render('article', {article});
+    res.redirect('/articles');
   });	
 });
 
@@ -54,7 +55,7 @@ router.get('/remove/:id', function(req, res, next) {
   Article.remove({_id: id}, function (err, article) {
     if (err) {console.log('ERR');}
 
-    res.json('deleted');
+    res.redirect('/articles');
   }); 
 
 });
