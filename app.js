@@ -26,7 +26,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+// passport service
+var session = require('express-session');
+app.use(session({
+    secret: 'keyboard cat'
+}));
+
+var passport = require('passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./models/User.js');
+
+// Initialize Passport
+var initPassport = require('./passport-init');
+initPassport(passport);
+/// passport service end
+
+var authenticate = require('./routes/authenticate.js')(passport);
+
+app.use('/', authenticate);
+app.use('/main', index);
 app.use('/users', users);
 app.use('/articles', articles);
 
