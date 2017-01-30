@@ -16,15 +16,15 @@ function isAuthenticated (req, res, next) {
     return res.redirect('/');
 }
 
-router.use('/', isAuthenticated);
+// router.use('/', isAuthenticated);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   
   Article.find({}, function (err, articles) {	
  	// console.log(articles)
- 	res.render('articles', {articles})
- 	// res.json(articles)
+ 	// res.render('articles', {articles})
+ 	res.json(articles)
   });	
 });
 
